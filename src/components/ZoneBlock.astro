@@ -1,0 +1,23 @@
+---
+import Icon from './Icon.astro';
+import { zones } from '../data/site';
+---
+<div class="zb reveal">
+  <div class="zb__text">
+    <span class="eyebrow">Zone d’intervention</span>
+    <h2 class="h-lg">Genève & région</h2>
+    <p class="lead muted">RZH Espaces Verts intervient à Genève et dans les communes environnantes.</p>
+    <p class="muted zb__small">Pour les demandes situées en dehors de cette zone, <a href="/contact/">contactez-nous</a> afin de vérifier la possibilité d’intervention.</p>
+  </div>
+  <ul class="chips zb__chips">
+    {zones.map((z) => <li class="chip"><Icon name="MapPin" size={14} /> {z}</li>)}
+  </ul>
+</div>
+<style>
+  .zb { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .zb__text { display: grid; gap: 18px; }
+  .zb__small a { color: var(--green-900); }
+  .zb__chips .chip { display: inline-flex; align-items: center; gap: 6px; }
+  .zb__chips :global(.icon) { color: var(--leaf); }
+  @media (max-width: 860px) { .zb { grid-template-columns: 1fr; } }
+</style>

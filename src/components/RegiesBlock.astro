@@ -1,0 +1,43 @@
+---
+import Icon from './Icon.astro';
+import ReportCard from './ReportCard.astro';
+interface Props { full?: boolean }
+const { full = false } = Astro.props;
+---
+<section class="section section--dark rg">
+  <div class="container rg__grid">
+    <div class="rg__text reveal">
+      <span class="eyebrow">Régies & PPE</span>
+      <h2 class="h-lg">Votre partenaire local pour l’entretien des espaces verts</h2>
+      <p class="lead muted">RZH Espaces Verts accompagne les régies immobilières, PPE et propriétaires d’immeubles dans l’entretien régulier de leurs espaces extérieurs.</p>
+      <p class="muted">Notre objectif : vous permettre de confier l’entretien de vos espaces verts à un interlocuteur unique, avec un suivi clair et une communication simple.</p>
+      <ul class="rg__pts">
+        <li><Icon name="Camera" size={20} /> Photos après intervention</li>
+        <li><Icon name="ClipboardCheck" size={20} /> Rapport d’intervention</li>
+        <li><Icon name="UserRound" size={20} /> Interlocuteur unique</li>
+      </ul>
+      <div class="rg__ctas">
+        {full
+          ? <a class="btn btn--primary" href="/contact/?type=Immeuble#devis">Demander une visite pour votre propriété <Icon name="ArrowRight" /></a>
+          : <a class="btn btn--primary" href="/regies-ppe/">Découvrir le service régies <Icon name="ArrowRight" /></a>}
+      </div>
+    </div>
+    <div class="rg__visual reveal">
+      <ReportCard />
+      <p class="rg__caption muted">Ce suivi permet aux régies et responsables de propriétés de garder une vision claire des interventions réalisées.</p>
+    </div>
+  </div>
+</section>
+<style>
+  .rg { position: relative; overflow: hidden; }
+  .rg__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(40px, 7vw, 96px); align-items: center; }
+  .rg__text { display: grid; gap: 20px; }
+  .rg__pts { display: grid; gap: 12px; margin-top: 8px; }
+  .rg__pts li { display: flex; gap: 12px; align-items: center; }
+  .rg__pts :global(.icon) { color: var(--leaf-bright); }
+  .rg__ctas { margin-top: 12px; }
+  .rg__ctas .btn { white-space: normal; text-align: left; }
+  .rg__visual { display: grid; justify-items: center; gap: 28px; }
+  .rg__caption { max-width: 380px; text-align: center; font-size: .95rem; }
+  @media (max-width: 900px) { .rg__grid { grid-template-columns: 1fr; } }
+</style>

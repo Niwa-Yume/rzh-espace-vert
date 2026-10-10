@@ -1,0 +1,23 @@
+---
+interface Props { tone?: 'dark' | 'light'; size?: 'sm' | 'lg'; sub?: boolean }
+const { tone = 'dark', size = 'sm', sub = true } = Astro.props;
+---
+<span class:list={['logo', `logo--${tone}`, `logo--${size}`]}>
+  <span class="logo__mark" aria-hidden="true">R<span class="logo__z">Z<svg viewBox="0 0 40 40" class="logo__leaf"><path d="M6 34C6 18 16 6 36 4c0 20-12 30-28 30" fill="currentColor"/><path d="M8 32 28 12" stroke="var(--logo-vein)" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></span>H</span>
+  {sub && <span class="logo__sub" aria-hidden="true">Espaces verts</span>}
+  <span class="sr-only">RZH Espaces Verts</span>
+</span>
+<style>
+  .logo { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; --logo-vein: var(--cream); }
+  .logo__mark { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.02em; color: var(--green-900); }
+  .logo--light .logo__mark { color: var(--cream); }
+  .logo--light { --logo-vein: var(--green-900); }
+  .logo__z { position: relative; display: inline-block; }
+  .logo__leaf { position: absolute; width: 0.62em; height: 0.62em; left: 50%; top: 52%; translate: -48% -50%; color: var(--leaf); }
+  .logo__sub { font-family: var(--font-caps); letter-spacing: 0.32em; text-transform: uppercase; color: var(--green-900); margin-top: 0.3em; padding-left: 0.32em; }
+  .logo--light .logo__sub { color: var(--cream); }
+  .logo--sm .logo__mark { font-size: 1.9rem; }
+  .logo--sm .logo__sub { font-size: 0.58rem; }
+  .logo--lg .logo__mark { font-size: clamp(3.5rem, 9vw, 6rem); }
+  .logo--lg .logo__sub { font-size: clamp(0.9rem, 2vw, 1.35rem); }
+</style>

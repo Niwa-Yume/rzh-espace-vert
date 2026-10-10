@@ -1,0 +1,11 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import FormulesGrid from '../../components/FormulesGrid.astro';
+import CtaBand from '../../components/CtaBand.astro';
+---
+<Base title="Formules d’entretien" description="Formules d’entretien de jardin Essentiel, Confort et Premium à Genève. Tarifs établis après évaluation du terrain.">
+  <PageHero eyebrow="Nos formules d’entretien" title="Essentiel, Confort ou Premium" text="Des solutions pensées pour assurer un entretien régulier et simplifier la gestion de votre extérieur." />
+  <section class="section"><div class="container"><FormulesGrid /></div></section>
+  <CtaBand title="Quelle formule pour votre propriété ?" text="Nous visitons votre terrain et vous proposons une offre adaptée à sa superficie, sa configuration et vos attentes." />
+</Base>

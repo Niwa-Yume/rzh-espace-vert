@@ -1,0 +1,88 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { nav, site } from '../data/site';
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<header class="hdr" data-hdr>
+  <div class="container hdr__inner">
+    <a href="/" class="hdr__logo" aria-label="RZH Espaces Verts, accueil"><Logo /></a>
+
+    <nav class="hdr__nav" aria-label="Navigation principale">
+      <ul>
+        {nav.filter((n) => n.href !== '/').map((n) => (
+          <li><a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="hdr__actions">
+      <a class="hdr__phone" href={`tel:${site.phoneHref}`}><Icon name="Phone" size={17} /> <span>{site.phone}</span></a>
+      <a class="btn btn--dark hdr__cta" href="/contact/#devis">Demander un devis</a>
+      <button class="hdr__burger" type="button" aria-expanded="false" aria-controls="mnav" data-burger>
+        <span class="sr-only">Menu</span>
+        <span class="i-open"><Icon name="Menu" /></span>
+        <span class="i-close"><Icon name="X" /></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mnav" class="mnav" hidden>
+    <ul>
+      {nav.map((n) => <li><a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
+    </ul>
+    <div class="mnav__foot">
+      <a class="btn btn--primary" href="/contact/#devis">Demander un devis</a>
+      <a class="btn btn--ghost" href={`tel:${site.phoneHref}`}><Icon name="Phone" /> {site.phone}</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const hdr = document.querySelector<HTMLElement>('[data-hdr]')!;
+  const btn = document.querySelector<HTMLButtonElement>('[data-burger]')!;
+  const menu = document.getElementById('mnav')!;
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') !== 'true';
+    btn.setAttribute('aria-expanded', String(open));
+    menu.hidden = !open;
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  const onScroll = () => hdr.classList.toggle('is-scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+<style>
+  .hdr { position: sticky; top: 0; z-index: 50; background: rgb(244 241 233 / .92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .25s; }
+  .hdr.is-scrolled { border-bottom-color: var(--line); }
+  .hdr__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 78px; }
+  .hdr__logo { text-decoration: none; flex-shrink: 0; }
+  .hdr__nav ul { display: flex; gap: clamp(14px, 2vw, 30px); }
+  .hdr__nav a { text-decoration: none; font-size: .95rem; color: var(--ink); position: relative; padding-block: 6px; }
+  .hdr__nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: var(--leaf); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+  .hdr__nav a:hover::after, .hdr__nav a[aria-current='page']::after { transform: scaleX(1); }
+  .hdr__actions { display: flex; align-items: center; gap: 18px; }
+  .hdr__phone { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: .95rem; color: var(--green-900); font-weight: 500; }
+  .hdr__phone :global(.icon) { color: var(--leaf); }
+  .hdr__cta { padding: .7em 1.25em; font-size: .92rem; }
+  .hdr__burger { display: none; background: none; border: 0; color: var(--green-900); padding: 8px; cursor: pointer; }
+  .hdr__burger .i-close { display: none; }
+  .hdr__burger[aria-expanded='true'] .i-open { display: none; }
+  .hdr__burger[aria-expanded='true'] .i-close { display: block; }
+
+  .mnav { position: fixed; inset: 78px 0 0 0; background: var(--cream); padding: 24px var(--gutter) 32px; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
+  .mnav[hidden] { display: none; }
+  .mnav ul li { border-bottom: 1px solid var(--line); }
+  .mnav ul a { display: block; padding: 16px 0; font-family: var(--font-display); font-size: 1.6rem; text-decoration: none; color: var(--green-900); }
+  .mnav ul a[aria-current='page'] { color: var(--leaf); }
+  .mnav__foot { display: grid; gap: 12px; margin-top: 32px; color: var(--green-900); }
+
+  @media (max-width: 1180px) { .hdr__phone span { display: none; } }
+  @media (max-width: 1020px) {
+    .hdr__nav, .hdr__phone { display: none; }
+    .hdr__burger { display: block; }
+  }
+  @media (max-width: 520px) { .hdr__cta { display: none; } }
+</style>

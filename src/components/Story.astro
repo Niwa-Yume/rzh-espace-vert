@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import skyline from '../assets/skyline-geneve.png';
+interface Props { full?: boolean; headingLevel?: 'h1' | 'h2' }
+const { full = false } = Astro.props;
+---
+<div class="st">
+  <div class="st__head reveal">
+    <span class="eyebrow">Notre histoire</span>
+    <h2 class="h-lg">Une entreprise familiale, une nouvelle génération</h2>
+  </div>
+  <div class="st__body reveal">
+    <p class="lead">RZH Espaces Verts s’inscrit dans la continuité de l’entreprise de jardinage de Rizahi Agim, active depuis plusieurs années dans la région genevoise.</p>
+    <p class="muted">Aujourd’hui, une nouvelle génération poursuit cette activité avec une nouvelle identité et une volonté de développer une entreprise moderne, structurée et proche de ses clients.</p>
+    {full && <>
+      <p class="muted">Le nom <strong>RZH</strong> reprend les initiales de Rizahi, afin de conserver l’identité familiale de l’entreprise tout en construisant une nouvelle image.</p>
+      <p class="muted">Notre ambition est de développer des relations durables avec nos clients, particuliers comme professionnels, et de devenir un partenaire de confiance pour l’entretien de leurs espaces extérieurs.</p>
+    </>}
+    {!full && <a class="st__link" href="/a-propos/">Lire notre histoire →</a>}
+  </div>
+  <Image class="st__sky" src={skyline} alt="" widths={[680, 1360]} sizes="(max-width: 900px) 100vw, 1100px" />
+</div>
+<style>
+  .st { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(28px, 6vw, 80px); align-items: start; }
+  .st__head { display: grid; gap: 18px; }
+  .st__body { display: grid; gap: 16px; }
+  .st__link { color: var(--green-900); font-weight: 500; text-underline-offset: 4px; }
+  .st__sky { grid-column: 1 / -1; width: 100%; max-width: 1100px; margin: clamp(20px, 4vw, 48px) auto 0; opacity: .85; }
+  @media (max-width: 860px) { .st { grid-template-columns: 1fr; } }
+</style>

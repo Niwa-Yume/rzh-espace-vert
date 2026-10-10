@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { site } from '../../data/site';
+---
+<Base title="Mentions légales & confidentialité">
+  <PageHero eyebrow="Informations" title="Mentions légales & confidentialité" />
+  <section class="section">
+    <div class="container prose">
+      <h2>Éditeur du site</h2>
+      <p>{site.name}<br />{site.manager}<br />{site.address.street}, {site.address.zip} {site.address.city} ({site.address.canton}), Suisse<br />
+      Tél. <a href={`tel:${site.phoneHref}`}>{site.phone}</a> — <a href={`mailto:${site.email}`}>{site.email}</a></p>
+
+      <h2>Protection des données</h2>
+      <p>Les données transmises via le formulaire de demande de devis (nom, téléphone, e-mail, adresse de la propriété, message) sont utilisées uniquement pour répondre à votre demande et préparer une offre. Elles ne sont ni vendues ni transmises à des tiers à des fins commerciales.</p>
+      <p>Le formulaire est acheminé par un service tiers d’envoi d’e-mails (Web3Forms), qui transmet votre message à notre adresse e-mail. Le site est hébergé par un prestataire d’hébergement web qui peut enregistrer des données techniques de connexion (journaux serveur).</p>
+      <p>Ce site n’utilise pas de cookies publicitaires ni d’outil de suivi.</p>
+      <p>Conformément à la loi fédérale sur la protection des données (LPD), vous pouvez demander l’accès, la rectification ou la suppression de vos données en écrivant à <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>Les textes, photographies et éléments graphiques de ce site sont la propriété de {site.name}, sauf mention contraire. Toute reproduction nécessite une autorisation préalable.</p>
+    </div>
+  </section>
+</Base>
+<style>
+  .prose { max-width: 760px; display: grid; gap: 16px; }
+  .prose h2 { font-size: 1.5rem; margin-top: 24px; }
+  .prose a { color: var(--green-700); }
+</style>

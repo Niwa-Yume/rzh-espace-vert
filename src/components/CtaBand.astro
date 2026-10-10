@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+interface Props { title?: string; text?: string; cta?: string; href?: string }
+const {
+  title = 'Vous souhaitez confier l’entretien de votre extérieur ?',
+  text = 'Décrivez-nous votre propriété et vos besoins. Nous pouvons organiser une visite sur place afin d’évaluer les travaux nécessaires et vous proposer une offre adaptée.',
+  cta = 'Demander un devis',
+  href = '/contact/#devis',
+} = Astro.props;
+---
+<section class="cta">
+  <div class="container">
+    <div class="cta__card reveal">
+      <div class="cta__body">
+        <h2 class="h-lg">{title}</h2>
+        <p class="lead">{text}</p>
+      </div>
+      <div class="cta__actions">
+        <a class="btn btn--primary" href={href}>{cta} <Icon name="ArrowRight" /></a>
+        <a class="btn btn--ghost" href={`tel:${site.phoneHref}`}><Icon name="Phone" /> {site.phone}</a>
+      </div>
+      <svg class="cta__leaf" viewBox="0 0 200 200" aria-hidden="true"><path d="M20 190C20 90 80 20 190 10c0 110-70 170-170 180Z" fill="currentColor"/></svg>
+    </div>
+  </div>
+</section>
+<style>
+  .cta { padding-block: var(--section); }
+  .cta__card { position: relative; overflow: hidden; background: var(--green-800); color: var(--cream); border-radius: calc(var(--radius) * 1.4); padding: clamp(36px, 6vw, 72px); display: grid; grid-template-columns: 1.4fr auto; gap: 40px; align-items: end; }
+  .cta__body { display: grid; gap: 18px; position: relative; z-index: 1; }
+  .cta__body p { color: rgb(244 241 233 / .78); max-width: 620px; }
+  .cta__actions { display: grid; gap: 12px; position: relative; z-index: 1; }
+  .cta__leaf { position: absolute; right: -30px; top: -50px; width: 300px; color: rgb(118 176 67 / .1); }
+  @media (max-width: 860px) { .cta__card { grid-template-columns: 1fr; } .cta__actions { justify-items: start; } }
+  @media (max-width: 420px) { .cta__actions, .cta__actions .btn { width: 100%; } }
+</style>

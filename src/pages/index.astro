@@ -1,0 +1,160 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import SectionHead from '../components/SectionHead.astro';
+import FormulesGrid from '../components/FormulesGrid.astro';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import RegiesBlock from '../components/RegiesBlock.astro';
+import WhyGrid from '../components/WhyGrid.astro';
+import Gallery from '../components/Gallery.astro';
+import Story from '../components/Story.astro';
+import ZoneBlock from '../components/ZoneBlock.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, quickServices } from '../data/site';
+import villa from '../assets/photos/villa-moderne-gazon.jpg';
+import haie from '../assets/photos/haie-taillee.jpg';
+---
+<Base>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <span class="eyebrow">Entretien & soin des extérieurs à Genève</span>
+        <h1 class="h-xl">Nous assurons l’entretien de vos espaces extérieurs <em>toute l’année.</em></h1>
+        <p class="lead hero__lead">RZH Espaces Verts est une entreprise genevoise spécialisée dans l’entretien des jardins, espaces verts et extérieurs. Prestations régulières ou ponctuelles, adaptées aux besoins de chaque propriété.</p>
+        <div class="hero__ctas">
+          <a class="btn btn--primary" href="/contact/#devis">Demander un devis <Icon name="ArrowRight" /></a>
+          <a class="btn btn--ghost" href="/services/">Découvrir nos prestations</a>
+        </div>
+        <ul class="hero__aud" aria-label="Clientèle">
+          {site.audiences.map((a) => <li>{a}</li>)}
+        </ul>
+      </div>
+
+      <div class="hero__media">
+        <div class="hero__frame">
+          <video autoplay muted loop playsinline preload="metadata" poster="/media/villa-entretien-poster.jpg" aria-label="Jardin de villa entretenu par RZH Espaces Verts">
+            <source src="/media/villa-entretien.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="hero__badge">
+          <Icon name="ShieldCheck" size={26} />
+          <div><strong>Un seul partenaire</strong><span>pour vos extérieurs</span></div>
+        </div>
+      </div>
+    </div>
+    <svg class="hero__leaf" viewBox="0 0 200 200" aria-hidden="true"><path d="M20 190C20 90 80 20 190 10c0 110-70 170-170 180Z" fill="currentColor"/></svg>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section intro">
+    <div class="container intro__grid">
+      <div class="intro__imgs reveal">
+        <Image class="intro__img1" src={villa} alt="Villa contemporaine avec pelouse entretenue" widths={[600, 1000]} sizes="(max-width: 900px) 100vw, 50vw" />
+        <Image class="intro__img2" src={haie} alt="Haie de thuyas taillée au cordeau" widths={[300, 500]} sizes="220px" />
+      </div>
+      <div class="intro__text reveal">
+        <span class="eyebrow">Un extérieur entretenu toute l’année</span>
+        <h2 class="h-lg">Un jardin ne se résume pas à une tonte.</h2>
+        <p class="lead">Chez RZH Espaces Verts, nous proposons une prise en charge globale de vos espaces extérieurs afin de conserver une propriété propre, soignée et agréable en toute saison.</p>
+        <p class="muted">De l’entretien courant aux travaux saisonniers, nous adaptons notre intervention à votre terrain et à vos besoins.</p>
+        <ul class="chips">
+          {quickServices.map((s) => <li class="chip">{s}</li>)}
+        </ul>
+        <a class="btn btn--dark intro__cta" href="/contact/#devis">Parler de votre projet <Icon name="ArrowRight" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULES -->
+  <section class="section section--paper">
+    <div class="container">
+      <SectionHead center eyebrow="Nos formules d’entretien" title="Un entretien régulier, sans souci de gestion" text="Des solutions pensées pour assurer un entretien régulier et simplifier la gestion de votre extérieur." />
+      <FormulesGrid />
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section">
+    <div class="container">
+      <div class="split-head">
+        <SectionHead eyebrow="Nos services" title="Tout l’entretien de vos extérieurs, au même endroit" />
+        <a class="btn btn--ghost reveal" href="/services/">Voir toutes nos prestations <Icon name="ArrowRight" /></a>
+      </div>
+      <ServicesGrid />
+    </div>
+  </section>
+
+  <RegiesBlock />
+
+  <!-- POURQUOI -->
+  <section class="section">
+    <div class="container">
+      <SectionHead eyebrow="Pourquoi RZH Espaces Verts ?" title="Soin, suivi et proximité" />
+      <WhyGrid />
+    </div>
+  </section>
+
+  <!-- RÉALISATIONS -->
+  <section class="section section--paper">
+    <div class="container">
+      <div class="split-head">
+        <SectionHead eyebrow="Nos réalisations" title="Découvrez notre travail" text="Chaque propriété est différente. Découvrez quelques-unes de nos réalisations." />
+        <a class="btn btn--ghost reveal" href="/realisations/">Toutes les réalisations <Icon name="ArrowRight" /></a>
+      </div>
+      <Gallery limit={6} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container"><Story /></div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="container"><ZoneBlock /></div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero { position: relative; overflow: hidden; background: var(--green-900); color: var(--cream); padding-block: clamp(48px, 7vw, 96px) clamp(64px, 8vw, 112px); }
+  .hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.25fr 1fr; gap: clamp(40px, 6vw, 88px); align-items: center; }
+  .hero__text { display: grid; gap: 26px; }
+  .hero h1 em { font-style: italic; color: var(--leaf-bright); }
+  .hero__lead { color: rgb(244 241 233 / .78); max-width: 600px; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+  .hero__aud { display: flex; flex-wrap: wrap; gap: 6px 0; margin-top: 18px; font-family: var(--font-caps); font-size: .76rem; letter-spacing: .24em; text-transform: uppercase; color: rgb(244 241 233 / .7); }
+  .hero__aud li:not(:last-child)::after { content: '•'; color: var(--leaf); margin-inline: 14px; }
+  .hero__media { position: relative; justify-self: center; width: min(100%, 400px); }
+  .hero__frame { aspect-ratio: 9 / 15; border-radius: 200px 200px var(--radius) var(--radius); overflow: hidden; background: var(--green-800); box-shadow: 0 40px 80px -30px rgb(0 0 0 / .6); }
+  .hero__frame video { width: 100%; height: 100%; object-fit: cover; }
+  .hero__badge { position: absolute; left: -36px; bottom: 44px; display: flex; gap: 12px; align-items: center; background: var(--cream); color: var(--green-900); padding: 14px 20px 14px 16px; border-radius: 14px; box-shadow: var(--shadow); }
+  .hero__badge :global(.icon) { color: var(--leaf); }
+  .hero__badge div { display: grid; line-height: 1.25; }
+  .hero__badge strong { font-family: var(--font-display); font-size: 1.05rem; }
+  .hero__badge span { font-size: .88rem; color: var(--muted); }
+  .hero__leaf { position: absolute; left: -80px; bottom: -120px; width: 380px; color: rgb(118 176 67 / .06); }
+
+  .intro__grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(40px, 7vw, 96px); align-items: center; }
+  .intro__imgs { position: relative; padding-bottom: 60px; }
+  .intro__img1 { width: 100%; aspect-ratio: 4 / 3.4; object-fit: cover; border-radius: var(--radius); }
+  .intro__img2 { position: absolute; right: -20px; bottom: 0; width: 42%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius); border: 6px solid var(--cream); }
+  .intro__text { display: grid; gap: 20px; }
+  .intro__cta { justify-self: start; margin-top: 8px; }
+
+  .split-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+  .split-head :global(.section-head) { margin-bottom: clamp(40px, 6vw, 64px); }
+  .split-head > .btn { margin-bottom: clamp(40px, 6vw, 64px); }
+
+  @media (max-width: 900px) {
+    .hero__grid, .intro__grid { grid-template-columns: 1fr; }
+    .hero__media { width: min(100%, 340px); }
+    .hero__badge { left: -12px; }
+    .intro__img2 { right: 0; }
+    .split-head { flex-direction: column; align-items: start; gap: 0; }
+    .split-head > .btn { margin-top: -24px; }
+  }
+  @media (max-width: 420px) { .hero__ctas .btn { width: 100%; } .hero__aud { letter-spacing: .14em; } .hero__aud li:not(:last-child)::after { margin-inline: 8px; } }
+</style>

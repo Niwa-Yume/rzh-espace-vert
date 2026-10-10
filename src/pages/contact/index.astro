@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import QuoteForm from '../../components/QuoteForm.astro';
+import Icon from '../../components/Icon.astro';
+import { site, zones } from '../../data/site';
+---
+<Base title="Contact & devis" description="Demandez un devis gratuit pour l’entretien de votre jardin à Genève. RZH Espaces Verts, Route des Romelles 9, 1293 Bellevue.">
+  <PageHero eyebrow="Demande de devis" title="Vous souhaitez confier l’entretien de votre extérieur ?" text="Décrivez-nous votre propriété et vos besoins. Nous pouvons organiser une visite sur place afin d’évaluer les travaux nécessaires et vous proposer une offre adaptée." />
+
+  <section class="section" id="devis">
+    <div class="container ct">
+      <div class="ct__form reveal">
+        <h2 class="h-md">Votre demande</h2>
+        <QuoteForm />
+      </div>
+
+      <aside class="ct__side reveal">
+        <div class="ct__card">
+          <span class="eyebrow">Contact</span>
+          <p class="ct__name">{site.manager}<span>{site.managerRole}</span></p>
+          <ul class="ct__list">
+            <li><Icon name="Phone" size={20} /><a href={`tel:${site.phoneHref}`}>{site.phone}</a></li>
+            <li><Icon name="MessageCircle" size={20} /><a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><Icon name="Mail" size={20} /><a href={`mailto:${site.email}`}>{site.email}</a></li>
+            <li><Icon name="MapPin" size={20} /><span>{site.address.street}<br />{site.address.zip} {site.address.city} — {site.address.canton}</span></li>
+          </ul>
+        </div>
+        <div class="ct__zone">
+          <h3>Zone d’intervention</h3>
+          <p class="muted">{zones.join(' · ')}</p>
+          <p class="muted ct__small">En dehors de cette zone ? Contactez-nous pour vérifier la possibilité d’intervention.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+<style>
+  .ct { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(32px, 6vw, 72px); align-items: start; }
+  .ct__form { display: grid; gap: 28px; }
+  .ct__side { display: grid; gap: 20px; position: sticky; top: 100px; }
+  .ct__card { background: var(--green-900); color: var(--cream); border-radius: var(--radius); padding: 32px; display: grid; gap: 18px; }
+  .ct__name { font-family: var(--font-display); font-size: 1.6rem; display: grid; }
+  .ct__name span { font-family: var(--font-caps); font-size: .75rem; letter-spacing: .26em; text-transform: uppercase; color: var(--leaf-bright); margin-top: 4px; }
+  .ct__list { display: grid; gap: 14px; }
+  .ct__list li { display: grid; grid-template-columns: 20px 1fr; gap: 14px; align-items: start; }
+  .ct__list :global(.icon) { color: var(--leaf-bright); margin-top: 3px; }
+  .ct__list a { text-decoration: none; overflow-wrap: anywhere; }
+  .ct__list a:hover { color: var(--leaf-bright); }
+  .ct__zone { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 28px; display: grid; gap: 10px; }
+  .ct__zone h3 { font-size: 1.2rem; }
+  .ct__small { font-size: .9rem; }
+  @media (max-width: 900px) { .ct { grid-template-columns: 1fr; } .ct__side { position: static; } }
+</style>

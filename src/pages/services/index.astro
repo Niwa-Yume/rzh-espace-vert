@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServicesGrid from '../../components/ServicesGrid.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { quickServices } from '../../data/site';
+---
+<Base title="Nos services" description="Entretien de jardins, taille de haies, élagage, plantations, entretien saisonnier, PPE et immeubles : toutes les prestations de RZH Espaces Verts à Genève.">
+  <PageHero eyebrow="Nos services" title="Un seul partenaire pour vos extérieurs" text="De l’entretien courant aux travaux saisonniers, nous adaptons notre intervention à votre terrain et à vos besoins.">
+    <ul class="chips chips--hero">{quickServices.map((s) => <li class="chip">{s}</li>)}</ul>
+  </PageHero>
+  <section class="section"><div class="container"><ServicesGrid /></div></section>
+  <CtaBand title="Un besoin précis pour votre propriété ?" cta="Parler de votre projet" />
+</Base>
+<style>
+  .chips--hero { margin-top: 10px; }
+  .chips--hero :global(.chip) { background: rgb(255 255 255 / .05); border-color: rgb(244 241 233 / .2); }
+</style>

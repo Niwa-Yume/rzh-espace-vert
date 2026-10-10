@@ -1,0 +1,20 @@
+---
+interface Props { eyebrow: string; title: string; text?: string }
+const { eyebrow, title, text } = Astro.props;
+---
+<section class="ph">
+  <div class="container ph__inner">
+    <span class="eyebrow">{eyebrow}</span>
+    <h1 class="h-xl">{title}</h1>
+    {text && <p class="lead ph__text">{text}</p>}
+    <slot />
+  </div>
+  <svg class="ph__leaf" viewBox="0 0 200 200" aria-hidden="true"><path d="M20 190C20 90 80 20 190 10c0 110-70 170-170 180Z" fill="currentColor"/></svg>
+</section>
+<style>
+  .ph { position: relative; overflow: hidden; background: var(--green-900); color: var(--cream); padding-block: clamp(64px, 9vw, 120px) clamp(56px, 7vw, 96px); }
+  .ph__inner { position: relative; z-index: 1; display: grid; gap: 22px; max-width: 900px; margin-left: 0; }
+  @media (min-width: 1200px) { .ph__inner { margin-left: calc((100vw - var(--container)) / 2); } }
+  .ph__text { color: rgb(244 241 233 / .78); max-width: 640px; }
+  .ph__leaf { position: absolute; right: -40px; bottom: -60px; width: min(46vw, 420px); color: rgb(118 176 67 / .08); }
+</style>

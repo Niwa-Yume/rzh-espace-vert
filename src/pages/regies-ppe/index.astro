@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import RegiesBlock from '../../components/RegiesBlock.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { regiesSolutions, regiesChecklist } from '../../data/site';
+---
+<Base title="Régies & PPE" description="Entretien des espaces verts pour régies immobilières, PPE et immeubles à Genève : interlocuteur unique, photos et rapport après chaque intervention.">
+  <PageHero eyebrow="Service régies" title="Une solution simple pour vos propriétés" text="RZH Espaces Verts accompagne les régies immobilières, PPE et propriétaires d’immeubles dans l’entretien régulier de leurs espaces extérieurs.">
+    <div><a class="btn btn--primary" href="/contact/?type=Immeuble#devis">Demander une visite pour votre propriété <Icon name="ArrowRight" /></a></div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <SectionHead eyebrow="Nos solutions" title="Un suivi clair, une communication simple" />
+      <div class="sol">
+        {regiesSolutions.map((s) => (
+          <article class="sol__item reveal">
+            <span class="sol__icon"><Icon name={s.icon} size={24} /></span>
+            <h3>{s.title}</h3>
+            <p class="muted">{s.text}</p>
+          </article>
+        ))}
+        <a class="sol__item sol__cta reveal" href="/contact/?type=Immeuble#devis">
+          <h3>Une propriété à confier ?</h3>
+          <p>Nous visitons le site et établissons une offre adaptée.</p>
+          <span class="sol__go">Demander une visite <Icon name="ArrowRight" size={18} /></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <RegiesBlock full />
+
+  <section class="section">
+    <div class="container check">
+      <div class="reveal">
+        <span class="eyebrow">Inclus dans le service</span>
+        <h2 class="h-lg">Entretien des espaces verts</h2>
+      </div>
+      <ul class="leaf-list check__list reveal">
+        {regiesChecklist.map((c) => <li><Icon name="Check" size={18} stroke={2} /><span>{c}</span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title="Vous gérez un immeuble ou une PPE ?" text="Nous visitons la propriété et établissons une offre adaptée aux besoins du site." cta="Demander une visite" href="/contact/?type=Immeuble#devis" />
+</Base>
+<style>
+  .sol { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .sol__item { display: grid; gap: 10px; align-content: start; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+  .sol__item h3 { font-size: 1.2rem; }
+  .sol__icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--leaf-soft); color: var(--green-900); }
+  .sol__cta { background: var(--green-900); color: var(--cream); border-color: var(--green-900); text-decoration: none; align-content: space-between; transition: background .2s; }
+  .sol__cta:hover { background: var(--green-700); }
+  .sol__cta p { color: rgb(244 241 233 / .75); }
+  .sol__go { display: inline-flex; gap: 8px; align-items: center; color: var(--leaf-bright); font-weight: 500; margin-top: 12px; }
+  .check { display: grid; grid-template-columns: 1fr 1.3fr; gap: 48px; align-items: start; }
+  .check > div { display: grid; gap: 18px; }
+  .check__list { columns: 2; column-gap: 32px; font-size: 1.05rem; }
+  .check__list li { break-inside: avoid; }
+  @media (max-width: 860px) { .check { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .check__list { columns: 1; } }
+</style>
