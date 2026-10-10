@@ -72,7 +72,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   .hdr__burger[aria-expanded='true'] .i-open { display: none; }
   .hdr__burger[aria-expanded='true'] .i-close { display: block; }
 
-  .mnav { position: fixed; inset: 78px 0 0 0; background: var(--cream); padding: 24px var(--gutter) 32px; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
+  .mnav { position: absolute; inset: 78px 0 auto; height: calc(100dvh - 78px); background: var(--cream); padding: 24px var(--gutter) 32px; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
   .mnav[hidden] { display: none; }
   .mnav ul li { border-bottom: 1px solid var(--line); }
   .mnav ul a { display: block; padding: 16px 0; font-family: var(--font-display); font-size: 1.6rem; text-decoration: none; color: var(--green-900); }
