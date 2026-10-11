@@ -33,8 +33,10 @@ export const nav = [
 ];
 
 export const quickServices = [
-  'Tonte', 'Taille', 'Haies', 'Massifs', 'Désherbage', 'Feuilles',
+  'Tonte', 'Taille', 'Haies', 'Massifs', 'Désherbage',
   'Nettoyage', 'Plantations', 'Élagage', 'Évacuation des déchets verts',
+  'Abattage d’arbres', 'Pose de treillis et clôtures',
+  'Création et aménagement de massifs', 'Installation de fontaines',
 ];
 
 // price: mettre un nombre (ex. 180) pour afficher « À partir de CHF 180 / mois ».
@@ -88,8 +90,6 @@ export const formules = [
       'Entretien complet du jardin',
       'Tonte et finitions',
       'Taille des haies et végétaux',
-      'Élagage selon les besoins',
-      'Plantations',
       'Entretien des massifs',
       'Désherbage',
       'Nettoyage des extérieurs',
