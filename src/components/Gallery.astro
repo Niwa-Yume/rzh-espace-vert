@@ -8,9 +8,13 @@ const items = limit ? realisations.slice(0, limit) : realisations;
 <div class="gal">
   {items.map((r, i) => (
     <figure class:list={['gal__item reveal', r.wide && 'gal__item--wide']}>
-      <button type="button" class="gal__btn" data-full={r.img.src} data-alt={r.alt} aria-label={`Agrandir : ${r.alt}`}>
-        <Image src={r.img} alt={r.alt} widths={[400, 700, 1000]} sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 33vw" loading={i < 3 ? 'eager' : 'lazy'} />
-      </button>
+      {r.video ? (
+        <video class="gal__video" src={r.video} poster={r.poster} muted loop playsinline preload="none" aria-label={r.alt} data-gal-video></video>
+      ) : (
+        <button type="button" class="gal__btn" data-full={r.img.src} data-alt={r.alt} aria-label={`Agrandir : ${r.alt}`}>
+          <Image src={r.img} alt={r.alt} widths={[400, 700, 1000]} sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 33vw" loading={i < 3 ? 'eager' : 'lazy'} />
+        </button>
+      )}
       <figcaption class="gal__cap">
         <span class="gal__type">{r.type}</span>
         <span class="gal__works">{r.works.join(' · ')}</span>
@@ -37,6 +41,20 @@ const items = limit ? realisations.slice(0, limit) : realisations;
     });
   });
   lb?.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+
+  // Vidéos : lecture uniquement quand visibles (pas de chargement inutile).
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      const v = target as HTMLVideoElement;
+      if (isIntersecting && !reduce) v.play().catch(() => {});
+      else v.pause();
+    });
+  }, { threshold: 0.35 });
+  document.querySelectorAll<HTMLVideoElement>('[data-gal-video]').forEach((v) => {
+    if (reduce) v.controls = true;
+    io.observe(v);
+  });
 </script>
 
 <style>
@@ -45,6 +63,7 @@ const items = limit ? realisations.slice(0, limit) : realisations;
   .gal__btn { all: unset; display: block; cursor: zoom-in; width: 100%; }
   .gal__btn :global(img) { width: 100%; transition: transform .6s ease, opacity .4s; }
   .gal__item:hover .gal__btn :global(img) { transform: scale(1.03); opacity: .92; }
+  .gal__video { display: block; width: 100%; aspect-ratio: 464 / 832; object-fit: cover; }
   .gal__btn:focus-visible { outline: 3px solid var(--leaf); outline-offset: -3px; }
   .gal__cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 20px 18px; display: grid; gap: 2px; color: var(--cream); background: linear-gradient(to top, rgb(11 29 19 / .88), transparent); pointer-events: none; }
   .gal__type { font-family: var(--font-display); font-size: 1.2rem; }

@@ -20,6 +20,12 @@ export const site = {
     canton: 'Genève',
   },
   audiences: ['Particuliers', 'PPE', 'Régies', 'Immeubles'],
+  // Chiffres affichés dans le hero de la page d'accueil — À METTRE À JOUR avec les vrais chiffres.
+  stats: [
+    { value: '150+', label: 'Projets réalisés' },
+    { value: '10', label: 'Années d’expérience' },
+    { value: '80+', label: 'Entretiens saisonniers' },
+  ],
 };
 
 export const nav = [
