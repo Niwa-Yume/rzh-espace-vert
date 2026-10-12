@@ -8,7 +8,7 @@ import { site } from '../../data/site';
   <section class="section">
     <div class="container prose">
       <h2>Éditeur du site</h2>
-      <p>{site.name}<br />{site.manager}<br />{site.address.street}, {site.address.zip} {site.address.city} ({site.address.canton}), Suisse<br />
+      <p>{site.name}<br />{site.managers.map((m) => m.name).join(' et ')} (co-gérants)<br />{site.address.street}, {site.address.zip} {site.address.city} ({site.address.canton}), Suisse<br />
       Tél. <a href={`tel:${site.phoneHref}`}>{site.phone}</a> — <a href={`mailto:${site.email}`}>{site.email}</a></p>
 
       <h2>Protection des données</h2>

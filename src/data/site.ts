@@ -7,8 +7,11 @@ export const site = {
   name: 'RZH Espaces Verts',
   tagline: 'Entretien & soin des extérieurs',
   url: 'https://rzh-espacesverts.ch',
-  manager: 'Florian Rizahi',
-  managerRole: 'Gérant',
+  // Les deux frères co-gèrent l'entreprise. Le premier est le contact principal (site.phone).
+  managers: [
+    { name: 'Florian Rizahi', role: 'Co-gérant', phone: '+41 79 747 83 99', phoneHref: '+41797478399' },
+    { name: 'Ilirjan Rizahi', role: 'Co-gérant', phone: '+41 79 528 91 44', phoneHref: '+41795289144' },
+  ],
   phone: '+41 79 747 83 99',
   phoneHref: '+41797478399',
   whatsapp: '41797478399', // format wa.me, sans + ni espaces

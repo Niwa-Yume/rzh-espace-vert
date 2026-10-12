@@ -18,9 +18,15 @@ import { site, zones } from '../../data/site';
       <aside class="ct__side reveal">
         <div class="ct__card">
           <span class="eyebrow">Contact</span>
-          <p class="ct__name">{site.manager}<span>{site.managerRole}</span></p>
+          <div class="ct__people">
+            {site.managers.map((m) => (
+              <div class="ct__person">
+                <p class="ct__name">{m.name}<span>{m.role}</span></p>
+                <a class="ct__tel" href={`tel:${m.phoneHref}`}><Icon name="Phone" size={20} />{m.phone}</a>
+              </div>
+            ))}
+          </div>
           <ul class="ct__list">
-            <li><Icon name="Phone" size={20} /><a href={`tel:${site.phoneHref}`}>{site.phone}</a></li>
             <li><Icon name="MessageCircle" size={20} /><a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">WhatsApp</a></li>
             <li><Icon name="Mail" size={20} /><a href={`mailto:${site.email}`}>{site.email}</a></li>
             <li><Icon name="MapPin" size={20} /><span>{site.address.street}<br />{site.address.zip} {site.address.city} — {site.address.canton}</span></li>
@@ -42,6 +48,11 @@ import { site, zones } from '../../data/site';
   .ct__card { background: var(--green-900); color: var(--cream); border-radius: var(--radius); padding: 32px; display: grid; gap: 18px; }
   .ct__name { font-family: var(--font-display); font-size: 1.6rem; display: grid; }
   .ct__name span { font-family: var(--font-caps); font-size: .75rem; letter-spacing: .26em; text-transform: uppercase; color: var(--leaf-bright); margin-top: 4px; }
+  .ct__people { display: grid; gap: 20px; padding-bottom: 20px; border-bottom: 1px solid rgb(244 241 233 / .14); }
+  .ct__person { display: grid; gap: 10px; }
+  .ct__tel { display: inline-flex; gap: 14px; align-items: center; text-decoration: none; }
+  .ct__tel :global(.icon) { color: var(--leaf-bright); }
+  .ct__tel:hover { color: var(--leaf-bright); }
   .ct__list { display: grid; gap: 14px; }
   .ct__list li { display: grid; grid-template-columns: 20px 1fr; gap: 14px; align-items: start; }
   .ct__list :global(.icon) { color: var(--leaf-bright); margin-top: 3px; }
