@@ -22,8 +22,9 @@ const year = new Date().getFullYear();
     <div>
       <h2 class="ftr__h">Contact</h2>
       <ul class="ftr__list ftr__contact">
-        <li><Icon name="UserRound" size={18} /> <span>{site.manager}, {site.managerRole.toLowerCase()}</span></li>
-        <li><Icon name="Phone" size={18} /> <a href={`tel:${site.phoneHref}`}>{site.phone}</a></li>
+        {site.managers.map((m) => (
+          <li><Icon name="UserRound" size={18} /> <span>{m.name}, {m.role.toLowerCase()}<br /><a href={`tel:${m.phoneHref}`}>{m.phone}</a></span></li>
+        ))}
         <li><Icon name="Mail" size={18} /> <a href={`mailto:${site.email}`}>{site.email}</a></li>
         <li><Icon name="MapPin" size={18} /> <span>{site.address.street}<br />{site.address.zip} {site.address.city}</span></li>
       </ul>

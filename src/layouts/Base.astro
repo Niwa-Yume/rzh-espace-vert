@@ -32,7 +32,7 @@ const jsonLd = {
     addressCountry: 'CH',
   },
   areaServed: zones.map((z) => ({ '@type': 'City', name: z })),
-  founder: { '@type': 'Person', name: site.manager },
+  founder: site.managers.map((m) => ({ '@type': 'Person', name: m.name, jobTitle: m.role, telephone: m.phone })),
 };
 ---
 <!doctype html>
