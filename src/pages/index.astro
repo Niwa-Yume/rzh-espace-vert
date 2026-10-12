@@ -27,6 +27,14 @@ import haie from '../assets/photos/haie-taillee.jpg';
           <a class="btn btn--primary" href="/contact/#devis">Demander un devis <Icon name="ArrowRight" /></a>
           <a class="btn btn--ghost" href="/services/">Découvrir nos prestations</a>
         </div>
+        <dl class="hero__stats">
+          {site.stats.map((st) => (
+            <div class="hero__stat">
+              <dt>{st.label}</dt>
+              <dd>{st.value}</dd>
+            </div>
+          ))}
+        </dl>
         <ul class="hero__aud" aria-label="Clientèle">
           {site.audiences.map((a) => <li>{a}</li>)}
         </ul>
@@ -125,7 +133,12 @@ import haie from '../assets/photos/haie-taillee.jpg';
   .hero h1 em { font-style: italic; color: var(--leaf-bright); }
   .hero__lead { color: rgb(244 241 233 / .78); max-width: 600px; }
   .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
-  .hero__aud { display: flex; flex-wrap: wrap; gap: 6px 0; margin-top: 18px; font-family: var(--font-caps); font-size: .76rem; letter-spacing: .24em; text-transform: uppercase; color: rgb(244 241 233 / .7); }
+  .hero__stats { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0; margin: 10px 0 0; }
+  .hero__stat { display: flex; flex-direction: column; gap: 6px; padding-inline: clamp(18px, 3vw, 36px); border-left: 1px solid rgb(244 241 233 / .16); }
+  .hero__stat:first-child { padding-left: 0; border-left: 0; }
+  .hero__stat dd { order: -1; margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 3.6vw, 2.8rem); line-height: 1; color: var(--leaf-bright); }
+  .hero__stat dt { max-width: 12ch; font-size: .86rem; line-height: 1.3; color: rgb(244 241 233 / .72); }
+  .hero__aud { display: flex; flex-wrap: wrap; gap: 6px 0; margin-top: 6px; font-family: var(--font-caps); font-size: .76rem; letter-spacing: .24em; text-transform: uppercase; color: rgb(244 241 233 / .7); }
   .hero__aud li:not(:last-child)::after { content: '•'; color: var(--leaf); margin-inline: 14px; }
   .hero__media { position: relative; justify-self: center; width: min(100%, 400px); }
   .hero__frame { aspect-ratio: 9 / 15; border-radius: 200px 200px var(--radius) var(--radius); overflow: hidden; background: var(--green-800); box-shadow: 0 40px 80px -30px rgb(0 0 0 / .6); }
@@ -156,5 +169,5 @@ import haie from '../assets/photos/haie-taillee.jpg';
     .split-head { flex-direction: column; align-items: start; gap: 0; }
     .split-head > .btn { margin-top: -24px; }
   }
-  @media (max-width: 420px) { .hero__ctas .btn { width: 100%; } .hero__aud { letter-spacing: .14em; } .hero__aud li:not(:last-child)::after { margin-inline: 8px; } }
+  @media (max-width: 420px) { .hero__stat { padding-inline: 14px; } .hero__stat dt { font-size: .78rem; } .hero__ctas .btn { width: 100%; } .hero__aud { letter-spacing: .14em; } .hero__aud li:not(:last-child)::after { margin-inline: 8px; } }
 </style>
