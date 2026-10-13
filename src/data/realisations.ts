@@ -12,6 +12,7 @@ import massif from '../assets/photos/remise-en-etat-massif.jpg';
 import plantations from '../assets/photos/plantations-jardin.jpg';
 import terrasseLed from '../assets/photos/terrasse-eclairage-led.jpg';
 import terrasseGravier from '../assets/photos/terrasse-gravier-bordures.jpg';
+import haieCypres from '../assets/photos/taille-haie-cypres.jpg';
 
 type Realisation = {
   alt: string;
@@ -22,6 +23,7 @@ type Realisation = {
 } & ({ img: ImageMetadata; video?: never } | { video: string; poster: string; img?: never });
 
 export const realisations: Realisation[] = [
+  { img: haieCypres, alt: 'Taille d’une très haute haie de cyprès le long d’une roseraie', type: 'Taille de haies', works: ['Taille en hauteur', 'Finitions', 'Ramassage'], category: 'Taille' },
   { img: terrasseLed, alt: 'Jardin contemporain avec terrasse en dalles, gazon, bacs maçonnés et éclairage LED intégré', type: 'Aménagement', works: ['Terrasse', 'Gazon', 'Bacs plantés', 'Éclairage'], category: 'Aménagements' },
   { video: '/media/gazon-enrochement.mp4', poster: '/media/gazon-enrochement-poster.jpg', alt: 'Visite d’un jardin de villa : gazon neuf, enrochement et clôture', type: 'Aménagement', works: ['Pose de gazon', 'Enrochement', 'Clôture'], category: 'Aménagements' },
   { img: terrasseGravier, alt: 'Terrasse en gravier clair bordée de profilés métalliques le long d’une villa', type: 'Aménagement', works: ['Terrasse en gravier', 'Bordures métalliques', 'Gazon'], category: 'Aménagements' },
