@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { propertyTypes, quickServices, formules, site } from '../data/site';
+import { propertyTypes, quickServices, formules, site, surfaces, frequences, delais } from '../data/site';
 // Clé Web3Forms (gratuit, 250 envois/mois) — à définir dans .env ou dans Vercel :
 //   PUBLIC_WEB3FORMS_KEY=xxxxxxxx-xxxx-...
 // Sans clé, le formulaire ouvre le client mail du visiteur (mailto) avec la demande pré-remplie.
@@ -13,38 +13,25 @@ const waText = encodeURIComponent('Bonjour, voici des photos de ma propriété p
   <input type="hidden" name="from_name" value="Site RZH Espaces Verts" />
   <input type="checkbox" name="botcheck" class="qf__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-  <div class="qf__row">
-    <label class="qf__field">
-      <span>Nom / Prénom *</span>
-      <input name="Nom" required autocomplete="name" />
-    </label>
-    <label class="qf__field">
-      <span>Téléphone *</span>
-      <input name="Téléphone" type="tel" required autocomplete="tel" inputmode="tel" />
-    </label>
-  </div>
-  <div class="qf__row">
-    <label class="qf__field">
-      <span>E-mail *</span>
-      <input name="email" type="email" required autocomplete="email" />
-    </label>
-    <label class="qf__field">
-      <span>Adresse de la propriété</span>
-      <input name="Adresse" autocomplete="street-address" />
-    </label>
-  </div>
+  <div class="qf__progress" aria-hidden="true"><span data-bar></span></div>
+  <p class="qf__count" data-count></p>
 
-  <fieldset class="qf__set">
-    <legend>Type de propriété</legend>
+  <fieldset class="qf__step" data-step="Votre propriété">
+    <legend class="qf__title">Quel type de propriété ?</legend>
     <div class="qf__pills">
-      {propertyTypes.map((t) => (
-        <label class="pill"><input type="radio" name="Type de propriété" value={t} /><span>{t}</span></label>
+      {propertyTypes.map((t, i) => (
+        <label class="pill"><input type="radio" name="Type de propriété" value={t} required={i === 0} /><span>{t}</span></label>
       ))}
     </div>
+    <label class="qf__field">
+      <span>Adresse ou commune de la propriété</span>
+      <input name="Adresse" autocomplete="street-address" placeholder="Ex. Cologny" />
+    </label>
   </fieldset>
 
-  <fieldset class="qf__set">
-    <legend>Prestations souhaitées</legend>
+  <fieldset class="qf__step" data-step="Prestations">
+    <legend class="qf__title">De quoi avez-vous besoin ?</legend>
+    <p class="qf__hint">Plusieurs choix possibles. Vous hésitez ? Passez à l’étape suivante, nous vous conseillerons.</p>
     <div class="qf__pills">
       {prestations.map((p) => (
         <label class="pill"><input type="checkbox" name="Prestations" value={p} /><span>{p}</span></label>
@@ -52,20 +39,51 @@ const waText = encodeURIComponent('Bonjour, voici des photos de ma propriété p
     </div>
   </fieldset>
 
-  <label class="qf__field">
-    <span>Message</span>
-    <textarea name="Message" rows="5" placeholder="Superficie approximative, fréquence souhaitée, accès, particularités…"></textarea>
-  </label>
+  <fieldset class="qf__step" data-step="Votre projet">
+    <legend class="qf__title">Parlez-nous de votre extérieur</legend>
+    {[['Surface approximative', surfaces], ['Fréquence souhaitée', frequences], ['Délai', delais]].map(([label, opts]) => (
+      <div class="qf__set">
+        <span class="qf__label">{label}</span>
+        <div class="qf__pills">
+          {(opts as string[]).map((o) => <label class="pill"><input type="radio" name={label as string} value={o} /><span>{o}</span></label>)}
+        </div>
+      </div>
+    ))}
+    <label class="qf__field">
+      <span>Message</span>
+      <textarea name="Message" rows="4" placeholder="Accès, particularités, précisions…"></textarea>
+    </label>
+    <div class="qf__photos">
+      <Icon name="Camera" size={22} />
+      <p><strong>Des photos ?</strong> Le plus simple est de nous les envoyer par WhatsApp après votre demande.</p>
+      <a class="btn btn--ghost" href={`https://wa.me/${site.whatsapp}?text=${waText}`} target="_blank" rel="noopener"><Icon name="MessageCircle" /> WhatsApp</a>
+    </div>
+  </fieldset>
 
-  <div class="qf__photos">
-    <Icon name="Camera" size={22} />
-    <p><strong>Ajouter des photos</strong> — le plus simple est de nous les envoyer par WhatsApp après votre demande.</p>
-    <a class="btn btn--ghost" href={`https://wa.me/${site.whatsapp}?text=${waText}`} target="_blank" rel="noopener"><Icon name="MessageCircle" /> Envoyer par WhatsApp</a>
+  <fieldset class="qf__step" data-step="Vos coordonnées">
+    <legend class="qf__title">Comment vous recontacter ?</legend>
+    <div class="qf__row">
+      <label class="qf__field">
+        <span>Nom / Prénom *</span>
+        <input name="Nom" required autocomplete="name" />
+      </label>
+      <label class="qf__field">
+        <span>Téléphone *</span>
+        <input name="Téléphone" type="tel" required autocomplete="tel" inputmode="tel" />
+      </label>
+    </div>
+    <label class="qf__field">
+      <span>E-mail *</span>
+      <input name="email" type="email" required autocomplete="email" />
+    </label>
+    <p class="qf__legal">Vos données sont uniquement utilisées pour répondre à votre demande. <a href="/mentions-legales/">En savoir plus</a>.</p>
+  </fieldset>
+
+  <div class="qf__nav">
+    <button class="btn btn--ghost" type="button" data-prev hidden>Retour</button>
+    <button class="btn btn--dark" type="button" data-next hidden>Continuer <Icon name="ArrowRight" /></button>
+    <button class="btn btn--dark qf__submit" type="submit">Envoyer ma demande <Icon name="ArrowRight" /></button>
   </div>
-
-  <p class="qf__legal">Vos données sont uniquement utilisées pour répondre à votre demande. <a href="/mentions-legales/">En savoir plus</a>.</p>
-
-  <button class="btn btn--dark qf__submit" type="submit">Demander mon devis <Icon name="ArrowRight" /></button>
   <p class="qf__status" role="status" aria-live="polite" data-status></p>
 </form>
 
@@ -84,6 +102,43 @@ const waText = encodeURIComponent('Bonjour, voici des photos de ma propriété p
     const type = params.get('type');
     if (type) form.querySelectorAll<HTMLInputElement>('input[name="Type de propriété"]').forEach((i) => { if (i.value === type) i.checked = true; });
 
+    // Étapes : sans JS toutes les étapes restent visibles, le formulaire fonctionne quand même.
+    const steps = [...form.querySelectorAll<HTMLFieldSetElement>('[data-step]')];
+    const prev = form.querySelector<HTMLButtonElement>('[data-prev]')!;
+    const next = form.querySelector<HTMLButtonElement>('[data-next]')!;
+    const bar = form.querySelector<HTMLElement>('[data-bar]')!;
+    const count = form.querySelector<HTMLElement>('[data-count]')!;
+    let current = 0;
+    const last = () => current === steps.length - 1;
+    const show = (i: number, focus = true) => {
+      current = i;
+      steps.forEach((s, j) => (s.hidden = j !== i));
+      prev.hidden = i === 0;
+      next.hidden = last();
+      btn.hidden = !last();
+      bar.style.width = `${((i + 1) / steps.length) * 100}%`;
+      count.textContent = `Étape ${i + 1} sur ${steps.length} — ${steps[i].dataset.step}`;
+      status.textContent = '';
+      status.className = 'qf__status';
+      if (focus) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        steps[i].querySelector<HTMLElement>('input, textarea')?.focus({ preventScroll: true });
+      }
+    };
+    const stepValid = () => {
+      const bad = steps[current].querySelector<HTMLInputElement>(':invalid');
+      if (!bad) return true;
+      form.classList.add('was-validated');
+      status.textContent = bad.type === 'radio' ? 'Merci de choisir une option.' : 'Merci de compléter les champs obligatoires (*).';
+      status.classList.add('is-error');
+      bad.focus();
+      return false;
+    };
+    form.classList.add('is-wizard');
+    next.addEventListener('click', () => stepValid() && show(current + 1));
+    prev.addEventListener('click', () => show(current - 1));
+    show(0, false);
+
     const collect = () => {
       const fd = new FormData(form);
       const out: Record<string, string> = {};
@@ -96,12 +151,16 @@ const waText = encodeURIComponent('Bonjour, voici des photos de ma propriété p
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!last()) { if (stepValid()) show(current + 1); return; } // Entrée dans un champ = étape suivante
       status.className = 'qf__status';
       if (!form.checkValidity()) {
         form.classList.add('was-validated');
         status.textContent = 'Merci de compléter les champs obligatoires (*).';
         status.classList.add('is-error');
-        form.querySelector<HTMLInputElement>(':invalid')?.focus();
+        const bad = form.querySelector<HTMLInputElement>(':invalid');
+        const i = steps.findIndex((s) => s.contains(bad));
+        if (i >= 0 && i !== current) show(i);
+        bad?.focus();
         return;
       }
       if ((form.querySelector('[name="botcheck"]') as HTMLInputElement).checked) return;
@@ -129,6 +188,7 @@ const waText = encodeURIComponent('Bonjour, voici des photos de ma propriété p
         if (!json.success) throw new Error(json.message);
         form.reset();
         form.classList.remove('was-validated');
+        show(0, false);
         status.textContent = 'Merci ! Votre demande a bien été envoyée. Nous vous recontactons rapidement.';
         status.classList.add('is-ok');
       } catch {
@@ -142,7 +202,18 @@ const waText = encodeURIComponent('Bonjour, voici des photos de ma propriété p
 </script>
 
 <style>
-  .qf { display: grid; gap: 22px; }
+  .qf { display: grid; gap: 22px; scroll-margin-top: 110px; }
+  .qf__progress { display: none; height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .qf__progress span { display: block; height: 100%; width: 0; background: var(--leaf); transition: width .3s ease; }
+  .qf__count { display: none; font-family: var(--font-caps); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--green-700); margin-top: -8px; }
+  .is-wizard .qf__progress, .is-wizard .qf__count { display: block; }
+  .qf__step { border: 0; padding: 0; margin: 0; display: grid; gap: 20px; min-width: 0; }
+  .qf__step[hidden] { display: none; }
+  .qf__title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; padding: 0; margin-bottom: 4px; }
+  .qf__hint { font-size: .92rem; color: var(--muted); margin-top: -8px; }
+  .qf__label { font-size: .92rem; font-weight: 500; }
+  .qf__nav { display: flex; flex-wrap: wrap; gap: 10px; }
+  .qf__nav [hidden] { display: none; }
   .qf__hp { position: absolute; left: -9999px; }
   .qf__row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .qf__field { display: grid; gap: 8px; font-size: .92rem; font-weight: 500; }
@@ -153,8 +224,7 @@ const waText = encodeURIComponent('Bonjour, voici des photos de ma propriété p
   }
   .qf__field input:focus, .qf__field textarea:focus { outline: none; border-color: var(--leaf); box-shadow: 0 0 0 3px rgb(118 176 67 / .2); }
   .was-validated :invalid { border-color: #b4462f !important; }
-  .qf__set { border: 0; padding: 0; margin: 0; display: grid; gap: 12px; }
-  .qf__set legend { font-size: .92rem; font-weight: 500; margin-bottom: 10px; padding: 0; }
+  .qf__set { display: grid; gap: 10px; }
   .qf__pills { display: flex; flex-wrap: wrap; gap: 8px; }
   .pill { position: relative; cursor: pointer; }
   .pill input { position: absolute; opacity: 0; pointer-events: none; }
@@ -165,7 +235,6 @@ const waText = encodeURIComponent('Bonjour, voici des photos de ma propriété p
   .qf__photos { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; padding: 18px 20px; border: 1px dashed var(--green-700); border-radius: 14px; background: rgb(207 227 182 / .25); font-size: .95rem; color: var(--green-900); }
   .qf__photos .btn { padding: .6em 1.1em; font-size: .9rem; }
   .qf__legal { font-size: .85rem; color: var(--muted); }
-  .qf__submit { justify-self: start; }
   .qf__status { font-size: .95rem; min-height: 1.5em; }
   .qf__status.is-ok { color: var(--green-700); font-weight: 500; }
   .qf__status.is-error { color: #b4462f; }
@@ -173,6 +242,6 @@ const waText = encodeURIComponent('Bonjour, voici des photos de ma propriété p
     .qf__row { grid-template-columns: 1fr; }
     .qf__photos { grid-template-columns: auto 1fr; }
     .qf__photos .btn { grid-column: 1 / -1; justify-self: start; }
-    .qf__submit { width: 100%; }
+    .qf__nav .btn { flex: 1; justify-content: center; }
   }
 </style>

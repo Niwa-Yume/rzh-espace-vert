@@ -156,3 +156,8 @@ export const zones = [
 ];
 
 export const propertyTypes = ['Villa', 'PPE', 'Immeuble', 'Commerce', 'Bureau', 'Autre'];
+
+// Options du formulaire de devis (page /devis/).
+export const surfaces = ['Moins de 200 m²', '200 – 500 m²', '500 – 1 000 m²', 'Plus de 1 000 m²', 'Je ne sais pas'];
+export const frequences = ['Intervention ponctuelle', 'Chaque semaine', 'Toutes les 2 semaines', 'Chaque mois', 'À définir ensemble'];
+export const delais = ['Dès que possible', 'Dans le mois', 'Saison prochaine', 'Pas pressé'];
