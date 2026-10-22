@@ -1,13 +1,20 @@
 ---
 import { Image } from 'astro:assets';
 import { realisations } from '../data/realisations';
-interface Props { limit?: number }
-const { limit } = Astro.props;
+interface Props { limit?: number; filters?: boolean }
+const { limit, filters } = Astro.props;
 const items = limit ? realisations.slice(0, limit) : realisations;
+const categories = [...new Set(items.map((r) => r.category))];
 ---
+{filters && (
+  <div class="gal__filters" role="group" aria-label="Filtrer par catégorie">
+    <button type="button" class="gal__filter" aria-pressed="true" data-cat="">Tout</button>
+    {categories.map((c) => <button type="button" class="gal__filter" aria-pressed="false" data-cat={c}>{c}</button>)}
+  </div>
+)}
 <div class="gal">
   {items.map((r, i) => (
-    <figure class:list={['gal__item reveal', r.wide && 'gal__item--wide']}>
+    <figure class:list={['gal__item reveal', r.wide && 'gal__item--wide']} data-cat={r.category}>
       {r.video ? (
         <video class="gal__video" src={r.video} poster={r.poster} muted loop playsinline preload="none" aria-label={r.alt} data-gal-video></video>
       ) : (
@@ -42,6 +49,15 @@ const items = limit ? realisations.slice(0, limit) : realisations;
   });
   lb?.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
 
+  // Filtres par catégorie
+  const filters = document.querySelectorAll<HTMLButtonElement>('.gal__filter');
+  filters.forEach((f) => f.addEventListener('click', () => {
+    filters.forEach((o) => o.setAttribute('aria-pressed', String(o === f)));
+    document.querySelectorAll<HTMLElement>('.gal__item').forEach((it) => {
+      it.hidden = !!f.dataset.cat && it.dataset.cat !== f.dataset.cat;
+    });
+  }));
+
   // Vidéos : lecture uniquement quand visibles (pas de chargement inutile).
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const io = new IntersectionObserver((entries) => {
@@ -58,6 +74,11 @@ const items = limit ? realisations.slice(0, limit) : realisations;
 </script>
 
 <style>
+  .gal__filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .gal__filter { font: inherit; font-size: .92rem; padding: .55em 1.1em; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; transition: all .15s; }
+  .gal__filter:hover { border-color: var(--green-700); }
+  .gal__filter[aria-pressed='true'] { background: var(--green-900); border-color: var(--green-900); color: var(--cream); }
+  .gal__filter:focus-visible { outline: 2px solid var(--leaf); outline-offset: 2px; }
   .gal { columns: 3 300px; column-gap: 20px; }
   .gal__item { break-inside: avoid; margin: 0 0 20px; position: relative; border-radius: var(--radius); overflow: hidden; background: var(--green-900); }
   .gal__btn { all: unset; display: block; cursor: zoom-in; width: 100%; }

@@ -19,7 +19,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 
     <div class="hdr__actions">
       <a class="hdr__phone" href={`tel:${site.phoneHref}`}><Icon name="Phone" size={17} /> <span>{site.phone}</span></a>
-      <a class="btn btn--dark hdr__cta" href="/contact/#devis">Demander un devis</a>
+      <a class="btn btn--dark hdr__cta" href="/devis/">Demander un devis</a>
       <button class="hdr__burger" type="button" aria-expanded="false" aria-controls="mnav" data-burger>
         <span class="sr-only">Menu</span>
         <span class="i-open"><Icon name="Menu" /></span>
@@ -33,7 +33,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
       {nav.map((n) => <li><a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
     </ul>
     <div class="mnav__foot">
-      <a class="btn btn--primary" href="/contact/#devis">Demander un devis</a>
+      <a class="btn btn--primary" href="/devis/">Demander un devis</a>
       <a class="btn btn--ghost" href={`tel:${site.phoneHref}`}><Icon name="Phone" /> {site.phone}</a>
     </div>
   </div>

@@ -9,7 +9,7 @@ import { regiesSolutions, regiesChecklist } from '../../data/site';
 ---
 <Base title="Régies & PPE" description="Entretien des espaces verts pour régies immobilières, PPE et immeubles à Genève : interlocuteur unique, photos et rapport après chaque intervention.">
   <PageHero eyebrow="Service régies" title="Une solution simple pour vos propriétés" text="RZH Espaces Verts accompagne les régies immobilières, PPE et propriétaires d’immeubles dans l’entretien régulier de leurs espaces extérieurs.">
-    <div><a class="btn btn--primary" href="/contact/?type=Immeuble#devis">Demander une visite pour votre propriété <Icon name="ArrowRight" /></a></div>
+    <div><a class="btn btn--primary" href="/devis/?type=Immeuble">Demander une visite pour votre propriété <Icon name="ArrowRight" /></a></div>
   </PageHero>
 
   <section class="section">
@@ -23,7 +23,7 @@ import { regiesSolutions, regiesChecklist } from '../../data/site';
             <p class="muted">{s.text}</p>
           </article>
         ))}
-        <a class="sol__item sol__cta reveal" href="/contact/?type=Immeuble#devis">
+        <a class="sol__item sol__cta reveal" href="/devis/?type=Immeuble">
           <h3>Une propriété à confier ?</h3>
           <p>Nous visitons le site et établissons une offre adaptée.</p>
           <span class="sol__go">Demander une visite <Icon name="ArrowRight" size={18} /></span>
@@ -46,7 +46,7 @@ import { regiesSolutions, regiesChecklist } from '../../data/site';
     </div>
   </section>
 
-  <CtaBand title="Vous gérez un immeuble ou une PPE ?" text="Nous visitons la propriété et établissons une offre adaptée aux besoins du site." cta="Demander une visite" href="/contact/?type=Immeuble#devis" />
+  <CtaBand title="Vous gérez un immeuble ou une PPE ?" text="Nous visitons la propriété et établissons une offre adaptée aux besoins du site." cta="Demander une visite" href="/devis/?type=Immeuble" />
 </Base>
 <style>
   .sol { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }

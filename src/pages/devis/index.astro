@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import QuoteForm from '../../components/QuoteForm.astro';
+import Icon from '../../components/Icon.astro';
+import { site } from '../../data/site';
+
+const etapes = [
+  { icon: 'FileText', title: 'Votre demande', text: 'Quelques questions, 2 minutes. Sans engagement.' },
+  { icon: 'Eye', title: 'Visite sur place', text: 'Nous passons évaluer votre extérieur si nécessaire.' },
+  { icon: 'ClipboardCheck', title: 'Votre offre', text: 'Un devis clair, adapté à votre propriété.' },
+];
+---
+<Base title="Demande de devis" description="Demandez un devis gratuit et sans engagement pour l’entretien de votre jardin à Genève, en quelques étapes.">
+  <PageHero eyebrow="Devis gratuit" title="Votre devis en quelques étapes" text="Répondez à quelques questions sur votre propriété : nous revenons vers vous rapidement avec une proposition adaptée." />
+
+  <section class="section">
+    <div class="container dv">
+      <div class="dv__form reveal"><QuoteForm /></div>
+
+      <aside class="dv__side reveal">
+        <ol class="dv__steps">
+          {etapes.map((e, i) => (
+            <li>
+              <span class="dv__num"><Icon name={e.icon} size={20} /></span>
+              <div><strong>{i + 1}. {e.title}</strong><p>{e.text}</p></div>
+            </li>
+          ))}
+        </ol>
+        <div class="dv__call">
+          <p>Vous préférez en parler directement ?</p>
+          {site.managers.map((m) => (
+            <a href={`tel:${m.phoneHref}`}><Icon name="Phone" size={18} /> {m.phone} <span>{m.name.split(' ')[0]}</span></a>
+          ))}
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+<style>
+  .dv { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(32px, 6vw, 72px); align-items: start; }
+  .dv__form { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(22px, 4vw, 40px); }
+  .dv__side { display: grid; gap: 20px; position: sticky; top: 100px; }
+  .dv__steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; background: var(--green-900); color: var(--cream); border-radius: var(--radius); padding: 30px; }
+  .dv__steps li { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+  .dv__num { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgb(118 176 67 / .18); color: var(--leaf-bright); }
+  .dv__steps strong { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; }
+  .dv__steps p { font-size: .92rem; color: rgb(244 241 233 / .72); margin-top: 2px; }
+  .dv__call { display: grid; gap: 10px; padding: 24px 28px; border: 1px solid var(--line); border-radius: var(--radius); }
+  .dv__call a { display: flex; gap: 10px; align-items: center; text-decoration: none; font-weight: 500; }
+  .dv__call a:hover { color: var(--green-700); }
+  .dv__call :global(.icon) { color: var(--leaf); }
+  .dv__call span { color: var(--muted); font-weight: 400; font-size: .9rem; }
+  @media (max-width: 900px) { .dv { grid-template-columns: 1fr; } .dv__side { position: static; } }
+</style>

@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import { avantApres } from '../data/realisations';
+---
+<div class="ba">
+  {avantApres.map((p) => (
+    <article class="ba__item reveal">
+      <div class="ba__pair">
+        {[{ label: 'Avant', img: p.before }, { label: 'Après', img: p.after }].map(({ label, img }) => (
+          <figure class="ba__fig">
+            <Image src={img} alt={`${label} : ${p.alt}`} widths={[400, 700]} sizes="(max-width: 640px) 50vw, 33vw" loading="lazy" />
+            <figcaption class:list={['ba__tag', label === 'Après' && 'ba__tag--after']}>{label}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <p class="ba__cap"><strong>{p.type}</strong> {p.works.join(' · ')}</p>
+    </article>
+  ))}
+</div>
+
+<style>
+  .ba { display: grid; gap: 32px; }
+  .ba__item { display: grid; gap: 14px; max-width: 900px; }
+  .ba__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ba__fig { position: relative; margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--green-900); }
+  .ba__fig :global(img) { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+  .ba__tag { position: absolute; top: 14px; left: 14px; padding: .35em .9em; border-radius: 999px; background: rgb(11 29 19 / .75); color: var(--cream); font-family: var(--font-caps); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; }
+  .ba__tag--after { background: var(--leaf); color: var(--green-900); }
+  .ba__cap { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; color: var(--muted); }
+  .ba__cap strong { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: var(--ink); }
+</style>

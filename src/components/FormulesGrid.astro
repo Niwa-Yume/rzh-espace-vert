@@ -17,7 +17,7 @@ import { formules } from '../data/site';
       </ul>
       <div class="fg__foot">
         <p class="fg__price">{f.price ? <>À partir de <strong>CHF {f.price}</strong> / mois</> : <strong>Sur devis</strong>}</p>
-        <a class:list={['btn', f.featured ? 'btn--primary' : 'btn--dark']} href={`/contact/?formule=${f.id}#devis`}>Demander un devis</a>
+        <a class:list={['btn', f.featured ? 'btn--primary' : 'btn--dark']} href={`/devis/?formule=${f.id}`}>Demander un devis</a>
       </div>
     </article>
   ))}

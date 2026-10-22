@@ -13,6 +13,8 @@ import plantations from '../assets/photos/plantations-jardin.jpg';
 import terrasseLed from '../assets/photos/terrasse-eclairage-led.jpg';
 import terrasseGravier from '../assets/photos/terrasse-gravier-bordures.jpg';
 import haieCypres from '../assets/photos/taille-haie-cypres.jpg';
+import gazonAvant from '../assets/photos/terrasse-gazon-avant.jpg';
+import gazonApres from '../assets/photos/terrasse-gazon-apres.jpg';
 
 type Realisation = {
   alt: string;
@@ -37,4 +39,9 @@ export const realisations: Realisation[] = [
   { img: massif, alt: 'Massif préparé le long d’une allée en dalles', type: 'Remise en état', works: ['Préparation des massifs', 'Nettoyage', 'Évacuation'], category: 'Remise en état' },
   { img: plantations, alt: 'Jardin en cours d’aménagement avec arbres plantés et terre préparée', type: 'Plantations', works: ['Plantation d’arbres', 'Terre végétale', 'Rocaille'], category: 'Plantations' },
   { img: villaModerne, alt: 'Villa contemporaine avec large pelouse entretenue', type: 'Entretien de jardin', works: ['Tonte', 'Bordures', 'Haies'], category: 'Entretien', wide: true },
+];
+
+// Avant / après — même chantier photographié avant et après l'intervention.
+export const avantApres = [
+  { before: gazonAvant, after: gazonApres, alt: 'Jardin de villa le long d’une terrasse en dalles', type: 'Remise en état', works: ['Préparation du sol', 'Pose de gazon en rouleaux', 'Talus planté'] },
 ];
