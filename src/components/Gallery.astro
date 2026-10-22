@@ -25,7 +25,7 @@ const categories = [...new Set(items.map((r) => r.category))];
       <figcaption class="gal__cap">
         <span class="gal__type">{r.type}</span>
         <span class="gal__works">{r.works.join(' · ')}</span>
-        <span class="gal__loc">Région genevoise</span>
+        <span class="gal__loc">{r.region ?? 'Région genevoise'}</span>
       </figcaption>
     </figure>
   ))}

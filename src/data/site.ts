@@ -38,6 +38,7 @@ export const nav = [
   { label: 'Régies & PPE', href: '/regies-ppe/' },
   { label: 'Réalisations', href: '/realisations/' },
   { label: 'À propos', href: '/a-propos/' },
+  { label: 'FAQ', href: '/faq/' },
   { label: 'Contact', href: '/contact/' },
 ];
 
@@ -161,3 +162,16 @@ export const propertyTypes = ['Villa', 'PPE', 'Immeuble', 'Commerce', 'Bureau', 
 export const surfaces = ['Moins de 200 m²', '200 – 500 m²', '500 – 1 000 m²', 'Plus de 1 000 m²', 'Je ne sais pas'];
 export const frequences = ['Intervention ponctuelle', 'Chaque semaine', 'Toutes les 2 semaines', 'Chaque mois', 'À définir ensemble'];
 export const delais = ['Dès que possible', 'Dans le mois', 'Saison prochaine', 'Pas pressé'];
+
+// FAQ (page /faq/) — ajouter une entrée { q, a } pour une nouvelle question.
+export const faq = [
+  { q: 'Le devis est-il gratuit ?', a: 'Oui, le devis est gratuit et sans engagement. Remplissez le formulaire de demande de devis ou appelez-nous : nous pouvons organiser une visite sur place pour évaluer les travaux nécessaires.' },
+  { q: 'Dans quelles communes intervenez-vous ?', a: `Nous intervenons principalement à ${zones.slice(0, -1).join(', ')} et ${zones.at(-1)}. En dehors de cette zone, contactez-nous pour vérifier la possibilité d’intervention.` },
+  { q: 'Quels sont vos tarifs ?', a: 'Chaque propriété est différente : nos tarifs sont établis après évaluation du terrain, de sa surface et des prestations souhaitées. Vous recevez une offre claire avant toute intervention.' },
+  { q: 'Quelle est la différence entre les formules Essentiel, Confort et Premium ?', a: 'Essentiel couvre l’entretien courant (tonte, bordures, nettoyage). Confort ajoute la taille des haies et arbustes, l’entretien des massifs et les travaux saisonniers. Premium est une prise en charge complète de vos extérieurs, avec photos après intervention et suivi personnalisé.' },
+  { q: 'Intervenez-vous ponctuellement ou seulement sous contrat ?', a: 'Les deux. Nous proposons des formules d’entretien régulier, mais aussi des interventions ponctuelles : taille de haies, élagage, remise en état, plantations ou aménagements.' },
+  { q: 'Travaillez-vous avec les régies, PPE et immeubles ?', a: 'Oui. Nous proposons un entretien régulier adapté aux copropriétés et immeubles, avec un interlocuteur unique, des photos après intervention et un rapport des travaux réalisés.' },
+  { q: 'Que faites-vous des déchets verts ?', a: 'Les déchets verts générés par nos interventions sont ramassés et évacués, selon les prestations convenues.' },
+  { q: 'Dois-je être présent pendant l’intervention ?', a: 'Pas nécessairement, tant que l’accès à l’extérieur est possible. Pour les propriétés suivies régulièrement, des photos peuvent vous être transmises après chaque passage.' },
+  { q: 'Comment vous envoyer des photos de mon jardin ?', a: 'Le plus simple est de nous les envoyer par WhatsApp après votre demande de devis. Cela nous aide à préparer une offre adaptée.' },
+];

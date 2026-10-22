@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { faq } from '../../data/site';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+---
+<Base title="Questions fréquentes" description="Devis, tarifs, zone d’intervention, formules d’entretien, déchets verts : les réponses aux questions fréquentes sur RZH Espaces Verts à Genève.">
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <PageHero eyebrow="FAQ" title="Questions fréquentes" text="Vous ne trouvez pas votre réponse ? Appelez-nous ou faites une demande de devis, nous vous répondons rapidement." />
+
+  <section class="section">
+    <div class="container faq">
+      {faq.map(({ q, a }) => (
+        <details class="faq__item reveal">
+          <summary>{q}<Icon name="Plus" size={20} /></summary>
+          <p>{a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+<style>
+  .faq { max-width: 860px; display: grid; gap: 12px; }
+  .faq__item { border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
+  .faq__item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 20px 24px; font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary:focus-visible { outline: 2px solid var(--leaf); outline-offset: 2px; border-radius: 14px; }
+  .faq__item summary :global(.icon) { flex: none; color: var(--leaf); transition: transform .2s; }
+  .faq__item[open] summary :global(.icon) { transform: rotate(45deg); }
+  .faq__item p { padding: 0 24px 22px; color: var(--muted); max-width: 70ch; }
+</style>
