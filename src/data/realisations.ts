@@ -21,13 +21,14 @@ type Realisation = {
   type: string;
   works: string[];
   category: string;
+  region?: string; // défaut : Région genevoise
   wide?: boolean;
 } & ({ img: ImageMetadata; video?: never } | { video: string; poster: string; img?: never });
 
 export const realisations: Realisation[] = [
   { img: haieCypres, alt: 'Taille d’une très haute haie de cyprès le long d’une roseraie', type: 'Taille de haies', works: ['Taille en hauteur', 'Finitions', 'Ramassage'], category: 'Taille' },
   { img: terrasseLed, alt: 'Jardin contemporain avec terrasse en dalles, gazon, bacs maçonnés et éclairage LED intégré', type: 'Aménagement', works: ['Terrasse', 'Gazon', 'Bacs plantés', 'Éclairage'], category: 'Aménagements' },
-  { video: '/media/gazon-enrochement.mp4', poster: '/media/gazon-enrochement-poster.jpg', alt: 'Visite d’un jardin de villa : gazon neuf, enrochement et clôture', type: 'Aménagement', works: ['Pose de gazon', 'Enrochement', 'Clôture'], category: 'Aménagements' },
+  { video: '/media/gazon-enrochement.mp4', poster: '/media/gazon-enrochement-poster.jpg', alt: 'Visite d’un jardin de villa : gazon neuf, enrochement et clôture', type: 'Aménagement', works: ['Pose de gazon', 'Enrochement', 'Clôture'], category: 'Aménagements', region: 'Région vaudoise' },
   { img: terrasseGravier, alt: 'Terrasse en gravier clair bordée de profilés métalliques le long d’une villa', type: 'Aménagement', works: ['Terrasse en gravier', 'Bordures métalliques', 'Gazon'], category: 'Aménagements' },
   { img: cypres2, alt: 'Propriété avec allée de cyprès taillés et buis en boule', type: 'Entretien complet', works: ['Taille des cyprès', 'Buis', 'Tonte', 'Ramassage des feuilles'], category: 'Taille' },
   { img: elagage, alt: 'Séquoia élagué, coupes nettes le long du tronc', type: 'Élagage', works: ['Suppression des branches basses', 'Évacuation'], category: 'Élagage' },

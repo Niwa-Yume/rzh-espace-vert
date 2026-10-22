@@ -4,7 +4,7 @@ import { services } from '../data/site';
 ---
 <div class="sg">
   {services.map((s, i) => (
-    <article class:list={['sg__item reveal', i === services.length - 1 && 'sg__item--wide']} style={`transition-delay:${(i % 4) * 70}ms`}>
+    <article class:list={['sg__item reveal', i === services.length - 1 && 'sg__item--wide']} style={`--d:${(i % 4) * 70}ms`}>
       <span class="sg__icon"><Icon name={s.icon} size={28} /></span>
       <h3 class="sg__title">{s.title}</h3>
       <p class="sg__text">{s.text}</p>
@@ -14,14 +14,32 @@ import { services } from '../data/site';
 <style>
   .sg { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
   .sg__item { display: grid; gap: 14px; align-content: start; padding: clamp(28px, 3vw, 40px); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background .25s; }
+  .sg__item { position: relative; overflow: hidden; }
+  :global(.js) .sg__item.reveal { transition: opacity .8s ease var(--d), transform .8s ease var(--d), background .25s; }
   .sg__item:hover { background: var(--paper); }
+  /* Barre verte qui se dessine au survol */
+  .sg__item::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 3px; background: var(--leaf); transform: scaleX(0); transform-origin: left; transition: transform .45s ease; }
+  .sg__item:hover::after { transform: scaleX(1); }
+  /* Icône dans une pastille : apparition en « pop », rebond au survol */
+  .sg__icon { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: rgb(118 176 67 / .12); transition: transform .45s cubic-bezier(.34, 1.56, .64, 1), background .25s, color .25s; }
+  :global(.js) .sg__item.is-in .sg__icon { animation: sg-pop .7s cubic-bezier(.34, 1.56, .64, 1) calc(var(--d) + .25s) backwards; }
+  .sg__item:hover .sg__icon { transform: rotate(-8deg) scale(1.08); background: var(--leaf); color: var(--cream); }
+  .sg__title { transition: transform .3s ease; }
+  .sg__item:hover .sg__title { transform: translateX(4px); }
+  @keyframes sg-pop { from { opacity: 0; transform: scale(.4) rotate(-25deg); } }
   .sg__item--wide { grid-column: 1 / -1; grid-template-columns: auto 1fr; column-gap: 28px; background: var(--green-900); color: var(--cream); border-color: var(--green-900); }
   .sg__item--wide:hover { background: var(--green-800); }
-  .sg__item--wide .sg__icon { grid-row: span 2; color: var(--leaf-bright); }
+  .sg__item--wide .sg__icon { grid-row: span 2; color: var(--leaf-bright); background: rgb(118 176 67 / .18); }
+  .sg__item--wide:hover .sg__icon { color: var(--green-900); }
   .sg__item--wide .sg__text { color: rgb(244 241 233 / .75); max-width: 820px; }
   .sg__icon { color: var(--leaf); }
   .sg__title { font-size: 1.3rem; }
   .sg__text { color: var(--muted); font-size: .98rem; }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .sg__item.reveal { transition: background .25s; }
+    :global(.js) .sg__item.is-in .sg__icon { animation: none; }
+    .sg__item:hover .sg__icon, .sg__item:hover .sg__title { transform: none; }
+  }
   @media (max-width: 1100px) { .sg { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 620px) { .sg { grid-template-columns: 1fr; } .sg__item--wide { grid-template-columns: 1fr; } .sg__item--wide .sg__icon { grid-row: auto; } }
 </style>
