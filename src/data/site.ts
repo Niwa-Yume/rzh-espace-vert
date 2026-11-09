@@ -7,8 +7,9 @@ export const site = {
   name: 'RZH Espaces Verts',
   tagline: 'Entretien & soin des extérieurs',
   url: 'https://rzh-espacesverts.ch',
-  // Les deux frères co-gèrent l'entreprise. Le premier est le contact principal (site.phone).
+  // Agim, le père, est le fondateur ; ses deux fils co-gèrent l'entreprise. Florjan est le contact principal (site.phone).
   managers: [
+    { name: 'Agim Rizahi', role: 'Fondateur', phone: '+41 79 670 28 33', phoneHref: '+41796702833' },
     { name: 'Florjan Rizahi', role: 'Co-gérant', phone: '+41 79 747 83 99', phoneHref: '+41797478399' },
     { name: 'Ilirjan Rizahi', role: 'Co-gérant', phone: '+41 79 528 91 44', phoneHref: '+41795289144' },
   ],
